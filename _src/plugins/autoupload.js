@@ -5,7 +5,7 @@
  * @author Jinqn
  * @date 2013-10-14
  */
-UE.plugin.register("autoupload", function() {
+UE.plugin.register("autoupload", function () {
   function sendAndInsertFile(file, editor) {
     var me = editor;
     //模拟数据
@@ -25,14 +25,14 @@ UE.plugin.register("autoupload", function() {
     maxSize = me.getOpt(filetype + "MaxSize");
     allowFiles = me.getOpt(filetype + "AllowFiles");
     actionUrl = me.getActionUrl(me.getOpt(filetype + "ActionName"));
-    errorHandler = function(title) {
+    errorHandler = function (title) {
       var loader = me.document.getElementById(loadingId);
       loader && domUtils.remove(loader);
       me.fireEvent("showmessage", {
         id: loadingId,
         content: title,
         type: "error",
-        timeout: 4000
+        timeout: 4000,
       });
     };
 
@@ -44,9 +44,15 @@ UE.plugin.register("autoupload", function() {
         me.options.themePath +
         me.options.theme +
         '/images/spacer.gif">';
-      successHandler = function(data) {
-        var link = urlPrefix + data.url,
-          loader = me.document.getElementById(loadingId);
+      successHandler = function (data) {
+        var link = urlPrefix + data.url;
+        if (
+          /^data:image\/[a-z]+;base64/.test(data.url) ||
+          /^https?:\/\//.test(data.url)
+        ) {
+          link = data.url;
+        }
+        var loader = me.document.getElementById(loadingId);
         if (loader) {
           domUtils.removeClasses(loader, "loadingclass");
           loader.setAttribute("src", link);
@@ -66,7 +72,7 @@ UE.plugin.register("autoupload", function() {
         me.options.theme +
         '/images/spacer.gif">' +
         "</p>";
-      successHandler = function(data) {
+      successHandler = function (data) {
         var link = urlPrefix + data.url,
           loader = me.document.getElementById(loadingId);
 
@@ -81,7 +87,7 @@ UE.plugin.register("autoupload", function() {
     /* 插入loading的占位符 */
     me.execCommand("inserthtml", loadingHtml);
     /* 判断后端配置是否没有加载成功 */
-    if (!me.getOpt(filetype + "ActionName")) {
+    if (!me.options.uploadFile && !me.getOpt(filetype + "ActionName")) {
       errorHandler(me.getLang("autoupload.errorLoadConfig"));
       return;
     }
@@ -101,35 +107,51 @@ UE.plugin.register("autoupload", function() {
       return;
     }
 
-    /* 创建Ajax并提交 */
-    var xhr = new XMLHttpRequest(),
-      fd = new FormData(),
-      params = utils.serializeParam(me.queryCommandValue("serverparam")) || "",
-      url = utils.formatUrl(
-        actionUrl + (actionUrl.indexOf("?") == -1 ? "?" : "&") + params
-      );
+    if (me.options.uploadFile) {
+      me.options
+        .uploadFile(file)
+        .then(function (res) {
+          if (res.url) {
+            successHandler(res);
+          } else {
+            errorHandler(me.getLang("autoupload.loadError"));
+          }
+        })
+        .catch(function (e) {
+          errorHandler(me.getLang("autoupload.loadError"));
+        });
+    } else {
+      /* 创建Ajax并提交 */
+      var xhr = new XMLHttpRequest(),
+        fd = new FormData(),
+        params =
+          utils.serializeParam(me.queryCommandValue("serverparam")) || "",
+        url = utils.formatUrl(
+          actionUrl + (actionUrl.indexOf("?") == -1 ? "?" : "&") + params
+        );
 
-    fd.append(
-      fieldName,
-      file,
-      file.name || "blob." + file.type.substr("image/".length)
-    );
-    fd.append("type", "ajax");
-    xhr.open("post", url, true);
-    xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
-    xhr.addEventListener("load", function(e) {
-      try {
-        var json = new Function("return " + utils.trim(e.target.response))();
-        if (json.state == "SUCCESS" && json.url) {
-          successHandler(json);
-        } else {
-          errorHandler(json.state);
+      fd.append(
+        fieldName,
+        file,
+        file.name || "blob." + file.type.substr("image/".length)
+      );
+      fd.append("type", "ajax");
+      xhr.open("post", url, true);
+      xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+      xhr.addEventListener("load", function (e) {
+        try {
+          var json = new Function("return " + utils.trim(e.target.response))();
+          if (json.state == "SUCCESS" && json.url) {
+            successHandler(json);
+          } else {
+            errorHandler(json.state);
+          }
+        } catch (er) {
+          errorHandler(me.getLang("autoupload.loadError"));
         }
-      } catch (er) {
-        errorHandler(me.getLang("autoupload.loadError"));
-      }
-    });
-    xhr.send(fd);
+      });
+      xhr.send(fd);
+    }
   }
 
   function getPasteImage(e) {
@@ -145,13 +167,13 @@ UE.plugin.register("autoupload", function() {
   }
 
   return {
-    outputRule: function(root) {
-      utils.each(root.getNodesByTagName("img"), function(n) {
+    outputRule: function (root) {
+      utils.each(root.getNodesByTagName("img"), function (n) {
         if (/\b(loaderrorclass)|(bloaderrorclass)\b/.test(n.getAttr("class"))) {
           n.parentNode.removeChild(n);
         }
       });
-      utils.each(root.getNodesByTagName("p"), function(n) {
+      utils.each(root.getNodesByTagName("p"), function (n) {
         if (/\bloadpara\b/.test(n.getAttr("class"))) {
           n.parentNode.removeChild(n);
         }
@@ -161,13 +183,13 @@ UE.plugin.register("autoupload", function() {
       defaultOptions: {
         //默认间隔时间
         enableDragUpload: true,
-        enablePasteUpload: true
+        enablePasteUpload: true,
       },
       //插入粘贴板的图片，拖放插入图片
-      ready: function(e) {
+      ready: function (e) {
         var me = this;
         if (window.FormData && window.FileReader) {
-          var handler = function(e) {
+          var handler = function (e) {
             var hasImg = false,
               items;
             //获取粘贴板文件列表或者拖放文件列表
@@ -193,14 +215,14 @@ UE.plugin.register("autoupload", function() {
           if (me.getOpt("enableDragUpload") !== false) {
             domUtils.on(me.body, "drop", handler);
             //取消拖放图片时出现的文字光标位置提示
-            domUtils.on(me.body, "dragover", function(e) {
+            domUtils.on(me.body, "dragover", function (e) {
               if (e.dataTransfer.types[0] == "Files") {
                 e.preventDefault();
               }
             });
           } else {
             if (browser.gecko) {
-              domUtils.on(me.body, "drop", function(e) {
+              domUtils.on(me.body, "drop", function (e) {
                 if (getDropImage(e)) {
                   e.preventDefault();
                 }
@@ -223,7 +245,7 @@ UE.plugin.register("autoupload", function() {
             this.document
           );
         }
-      }
-    }
+      },
+    },
   };
 });
