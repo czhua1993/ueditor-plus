@@ -281,7 +281,8 @@ UE.plugins["fiximgclick"] = (function () {
 
   return function () {
     var me = this,
-      imageScale;
+      imageScale,
+      lastScaledImg;
 
     me.setOpt("imageScaleEnabled", true);
 
@@ -289,6 +290,14 @@ UE.plugins["fiximgclick"] = (function () {
       me.addListener("click", function (type, e) {
         var range = me.selection.getRange(),
           img = range.getClosedNode();
+
+        if (img && lastScaledImg === img) {
+          // 选中同一张图片，直接返回
+          lastScaledImg = undefined;
+          return;
+        }
+
+        lastScaledImg = img;
 
         if (img && img.tagName == "IMG" && me.body.contentEditable != "false") {
           if (
