@@ -22,7 +22,7 @@ UE.plugins["catchremoteimage"] = function () {
   me.addListener("catchRemoteImage", function () {
     var catcherLocalDomain = me.getOpt("catcherLocalDomain"),
       catcherActionUrl = me.getActionUrl(me.getOpt("catcherActionName")),
-      catcherUrlPrefix = me.getOpt("catcherUrlPrefix"),
+      catcherUrlPrefix = me.getOpt("catcherUrlPrefix") || "",
       catcherFieldName = me.getOpt("catcherFieldName");
 
     var remoteImages = [],
@@ -169,6 +169,36 @@ UE.plugins["catchremoteimage"] = function () {
     }
 
     function catchremoteimage(imgs, callbacks) {
+      if (me.options.catchRemoteImages) {
+        /**
+         * catchRemoteImages: (imgs: string[]) => Promise<{
+         *   list: {
+         *     source: string
+         *     url: string
+         *     state: 'SUCCESS' | 'FAIL'
+         *   }
+         *   state: 'SUCCESS'
+         * }>
+         */
+        me.options
+          .catchRemoteImages(imgs)
+          .then(callbacks["success"])
+          .catch(function () {
+            // 发生异常时，图片转存失败
+            callbacks["success"]({
+              list: imgs.map(function (img) {
+                return {
+                  source: img,
+                  url: img,
+                  state: "FAIL",
+                };
+              }),
+              state: "FAIL",
+            });
+          });
+        return;
+      }
+
       var params =
           utils.serializeParam(me.queryCommandValue("serverparam")) || "",
         url = utils.formatUrl(
