@@ -28,6 +28,7 @@ UE.plugin.register("autoupload", function () {
     errorHandler = function (title) {
       var loader = me.document.getElementById(loadingId);
       loader && domUtils.remove(loader);
+      me.trigger("contentchange");
       me.fireEvent("showmessage", {
         id: loadingId,
         content: title,
