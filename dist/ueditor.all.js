@@ -25884,6 +25884,36 @@ UE.plugins["catchremoteimage"] = function () {
   var catchRemoteImageCatching = false;
 
   function sendApi(imgs, callbacks) {
+    if (me.options.catchRemoteImages) {
+      // 自定义抓取图片
+      /**
+       * catchRemoteImages: (imgs: string[]) => Promise<{
+       *   list: {
+       *     source: string
+       *     url: string
+       *     state: 'SUCCESS' | 'FAIL'
+       *   }
+       *   state: 'SUCCESS'
+       * }>
+       */
+      me.options
+        .catchRemoteImages(imgs)
+        .then(callbacks["success"])
+        .catch(function () {
+          // 发生异常时，图片转存失败
+          callbacks["success"]({
+            list: imgs.map(function (img) {
+              return {
+                source: img,
+                url: img,
+                state: "FAIL",
+              };
+            }),
+            state: "FAIL",
+          });
+        });
+      return;
+    }
     var params = utils.serializeParam(me.queryCommandValue("serverparam")) || "",
       url = utils.formatUrl(
         catcherActionUrl +
