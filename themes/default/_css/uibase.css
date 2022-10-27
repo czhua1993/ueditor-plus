@@ -12,6 +12,10 @@
   url('./../font/iconfont.ttf?t=1651572942270') format('truetype');
 }
 
+.edui-default {
+  accent-color: #333;
+}
+
 /* common layer */
 .edui-default .edui-box {
     border: none;
@@ -128,4 +132,11 @@ div.edui-box {
 .edui-default span.edui-unclickable {
     color: gray;
     cursor: default;
+}
+
+.edui-default span.edui-popup-action-item {
+  margin-right: 5px;
+}
+.edui-default span.edui-popup-action-item:last-child {
+  margin-right: 0;
 }

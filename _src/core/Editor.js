@@ -259,10 +259,10 @@
         {
           src:
             me.options.langPath +
-            me.options.lang +
-            "/" +
-            me.options.lang +
-            ".js",
+              me.options.lang +
+              "/" +
+              me.options.lang +
+              ".js?20220907",
           tag: "script",
           type: "text/javascript",
           defer: "defer",

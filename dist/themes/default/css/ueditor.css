@@ -12,6 +12,10 @@
   url('./../font/iconfont.ttf?t=1651572942270') format('truetype');
 }
 
+.edui-default {
+  accent-color: #333;
+}
+
 /* common layer */
 .edui-default .edui-box {
     border: none;
@@ -128,6 +132,13 @@ div.edui-box {
 .edui-default span.edui-unclickable {
     color: gray;
     cursor: default;
+}
+
+.edui-default span.edui-popup-action-item {
+  margin-right: 5px;
+}
+.edui-default span.edui-popup-action-item:last-child {
+  margin-right: 0;
 }
 
 /* 工具栏 */
@@ -494,6 +505,10 @@ div.edui-box {
     -moz-border-radius: 2px;
 }
 
+.edui-default .edui-toolbar .edui-combox .edui-combox-body > div {
+    vertical-align: top;
+}
+
 .edui-default .edui-toolbar .edui-combox-body .edui-splitborder {
     display: none;
 }
@@ -581,6 +596,19 @@ div.edui-box {
 .edui-default .edui-toolbar .edui-state-disabled .edui-icon {
     opacity: 0.3;
     filter: alpha(opacity = 30);
+}
+
+.edui-default .edui-toolbar-button-custom{
+  display: inline-block !important;
+  line-height: 30px;
+  vertical-align: middle;
+  padding: 0 10px;
+  border-radius: 3px;
+  margin: 0 5px;
+}
+
+.edui-default .edui-toolbar-button-custom:hover{
+  background: #EEE;
 }
 
 /* toolbar icons */
@@ -1327,7 +1355,7 @@ div.edui-box {
 .edui-default .edui-dialog-buttons .edui-button .edui-button-body {
     height: 30px;
     font-size: 12px;
-    line-height: 30px;
+    line-height: 28px;
     cursor: pointer;
     border-radius: 4px;
     text-align: center;
@@ -1428,9 +1456,16 @@ div.edui-box {
 
 /*wordImage-dialog*/
 .edui-default .edui-for-wordimage .edui-dialog-content {
-    width: 620px;
-    height: 380px;
-    overflow: hidden;
+  width: 620px;
+  height: 380px;
+  overflow: hidden;
+}
+
+/*formula-dialog*/
+.edui-default .edui-for-formula .edui-dialog-content {
+  width: 620px;
+  height: 300px;
+  overflow: hidden;
 }
 
 /*attachment-dialog*/
@@ -1600,7 +1635,7 @@ div.edui-box {
     line-height: 20px;
     height: 20px;
     border: 1px solid #333;
-    padding: 3px 5px;
+    padding: 0 5px;
     cursor: pointer;
     border-radius: 3px;
 }
@@ -1781,7 +1816,7 @@ div.edui-box {
 .edui-default .edui-toolbar .edui-separator {
     width: 1px;
     height: 20px;
-    margin: 5px 0px;
+    margin: 5px 5px;
     background: #CCC;
 }
 
@@ -1790,10 +1825,11 @@ div.edui-box {
     position: absolute;
     overflow: hidden;
     bottom: 1px;
-    left: 1px;
-    width: 18px;
+    left: 5px;
+    width: 20px;
     height: 4px;
 }
+
 /*表情按钮及弹出菜单*/
 /*去除了表情的下拉箭头*/
 .edui-default .edui-for-emotion .edui-icon:before {

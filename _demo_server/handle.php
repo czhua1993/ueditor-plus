@@ -24,7 +24,10 @@ $config = [
     "snapscreenInsertAlign" => "none",
 
     // 抓取
-    "catcherLocalDomain" => ["127.0.0.1", "localhost"],
+    "catcherLocalDomain" => [
+        "127.0.0.1",
+        "localhost",
+    ],
     "catcherActionName" => "catch",
     "catcherFieldName" => "source",
     "catcherUrlPrefix" => "",
@@ -56,7 +59,12 @@ $config = [
     "fileManagerActionName" => "listFile",
     "fileManagerUrlPrefix" => "",
     "fileManagerListSize" => 20,
-    "fileManagerAllowFiles" => ['.zip', '.pdf', '.doc']
+    "fileManagerAllowFiles" => ['.zip', '.pdf', '.doc'],
+
+    // 公式渲染
+    "formulaConfig" => [
+        "imageUrlTemplate"=>"https://latex.codecogs.com/svg.image?{}",
+    ]
 
 ];
 
@@ -68,16 +76,22 @@ function output($data)
 }
 
 $action = @$_GET['action'];
+// var_dump($action);exit();
 switch ($action) {
     case 'image':
         // 图片文件上传
         // print_r($_FILES);
         // output(['state' => '上传错误信息']);
-        output(['state' => 'SUCCESS', 'url' => 'https://ms-assets.modstart.com/demo/modstart.jpg']);
+        sleep(2);
+        $name = isset($_POST['name']) ? $_POST['name'] : '';
+        output([
+            'state' => 'SUCCESS',
+            'url' => 'https://ms-assets.modstart.com/demo/modstart.jpg?name=' . urlencode($name),
+        ]);
     case 'listImage':
         // 图片列表
         $list = [];
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 20; $i++) {
             $list[] = [
                 'url' => 'https://ms-assets.modstart.com/demo/modstart.jpg',
                 'mtime' => time(),
@@ -86,8 +100,8 @@ switch ($action) {
         $result = [
             "state" => "SUCCESS",
             "list" => $list,
-            "start" => 0,
-            "total" => 10
+            "start" => intval(@$_GET['start']),
+            "total" => 100
         ];
         output($result);
     case 'video':
@@ -103,7 +117,7 @@ switch ($action) {
     case 'listFile':
         // 文件列表
         $list = [];
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 20; $i++) {
             $list[] = [
                 'url' => 'https://ms-assets.modstart.com/demo/modstart.jpg',
                 'mtime' => time(),
@@ -112,14 +126,33 @@ switch ($action) {
         $result = [
             "state" => "SUCCESS",
             "list" => $list,
-            "start" => 0,
-            "total" => 10
+            "start" => intval(@$_GET['start']),
+            "total" => 100
         ];
         output($result);
     case 'crawl':
         // 涂鸦上传
         // output(['state' => '上传错误信息']);
         output(['state' => 'SUCCESS', 'url' => 'https://ms-assets.modstart.com/demo/modstart.jpg']);
+    case 'catch':
+        // 图片抓取
+        // output(['state' => '上传错误信息']);
+        $list = [];
+        $source = @$_POST['source'];
+        if (!is_array($source) || empty($source)) {
+            $source = [];
+        }
+        foreach ($source as $imgUrl) {
+            $list[] = [
+                'state' => 'SUCCESS',
+                'url' => 'https://ms-assets.modstart.com/demo/modstart.jpg',
+                'size' => 100,
+                'title' => 'title',
+                'original' => '',
+                'source' => htmlspecialchars($imgUrl),
+            ];
+        }
+        output(['state' => 'SUCCESS', 'list' => $list]);
     default:
         output($config);
 }
