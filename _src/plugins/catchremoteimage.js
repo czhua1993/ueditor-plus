@@ -14,7 +14,7 @@ UE.plugins["catchremoteimage"] = function () {
     return;
   }
   me.setOpt({
-    catchRemoteImageEnable: false,
+    catchRemoteImageEnable: false
   });
 
   var catcherLocalDomain = me.getOpt("catcherLocalDomain"),
