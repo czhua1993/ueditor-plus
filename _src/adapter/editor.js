@@ -912,7 +912,9 @@
           var displays = [];
           for (var i = 0, ci; (ci = parents[i]); i++) {
             displays[i] = ci.style.display;
-            ci.style.display = "block";
+            if (domUtils.getComputedStyle(i, "display") === "none") {
+              ci.style.display = "block";
+            }
           }
           if (opt.initialFrameWidth) {
             opt.minFrameWidth = opt.initialFrameWidth;
