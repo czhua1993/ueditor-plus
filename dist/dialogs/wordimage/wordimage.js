@@ -23,6 +23,28 @@ function addUploadButtonListener() {
     }
     $('.image-tip').html('正在转存，请稍后...');
     var file = this.files[0];
+    if (editor.getOpt('uploadFile')) {
+      // 配置了自定义上传
+      var uploadFile = editor.getOpt('uploadFile')
+      uploadFile(file).then(function(res) {
+        if (res.url) {
+          window.imageUrls.push({
+            name: file.name,
+            url: res.url,
+            title: '',
+          });
+          if ($('#fileUrl').val().indexOf(file.name) >= 0) {
+            $('#fileUrl').val(res.url);
+            $('.image-tip').html('<span style="color:#139213;">转存成功，请提交确认</span>');
+          }
+        } else {
+          $('.image-tip').html('上传失败:' + JSON.stringify(res))
+        }
+      }).catch (function(e) {
+        $('.image-tip').html('上传失败:' + JSON.stringify(e))
+      });
+      return
+    }
     uploader.addFile(file);
     uploader.upload();
   });
@@ -33,7 +55,7 @@ function addOkListener() {
   dialog.onok = function () {
     //console.log('imageUrls',imageUrls);
     if (!imageUrls.length) return;
-    var urlPrefix = editor.getOpt('imageUrlPrefix'),
+    var urlPrefix = editor.getOpt('imageUrlPrefix') || '',
       images = domUtils.getElementsByTagName(editor.document, "img");
     editor.fireEvent('saveScene');
     // console.log('images',images,imageUrls);
