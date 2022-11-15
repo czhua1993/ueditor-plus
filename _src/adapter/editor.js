@@ -321,15 +321,9 @@
             ) {
               dialogName = "";
             }
-            if (!dialogs[dialogName]) {
-              return;
-            }
 
             var actions = [];
             actions.push('<nobr />');
-            actions.push('<span onclick=$$._onImgSetFloat("none") class="edui-clickable edui-popup-action-item">' +
-              editor.getLang("default") +
-              "</span>");
             actions.push('<span onclick=$$._onImgSetFloat("none") class="edui-clickable edui-popup-action-item">' +
               editor.getLang("default") +
               "</span>");
@@ -350,7 +344,8 @@
               actions.push("<span onclick=\"$$._onImgEditButtonClick('wordimageDialog');\" class='edui-clickable edui-popup-action-item'>" +
                 editor.getLang("save") +
                 "</span>");
-            } else {
+            }
+            if(dialogs[dialogName]) {
               actions.push("<span onclick=\"$$._onImgEditButtonClick('" + dialogName + '\');" class="edui-clickable edui-popup-action-item">' +
                 editor.getLang("modify") +
                 "</span>");
