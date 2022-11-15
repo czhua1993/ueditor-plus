@@ -12,9 +12,14 @@ UE.parse.register("list", function(utils) {
     };
 
   utils.extend(this, {
-    liiconpath: "http://bs.baidu.com/listicon/",
     listDefaultPaddingLeft: "20"
   });
+
+  if (!this.liiconpath) {
+    utils.extend(this, {
+      liiconpath: "http://bs.baidu.com/listicon/",
+    });
+  }
 
   var root = this.root,
     ols = root.getElementsByTagName("ol"),
