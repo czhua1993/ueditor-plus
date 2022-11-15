@@ -19,13 +19,13 @@ UE.plugins["catchremoteimage"] = function () {
 
   var catcherLocalDomain = me.getOpt("catcherLocalDomain"),
     catcherActionUrl = me.getActionUrl(me.getOpt("catcherActionName")),
-    catcherUrlPrefix = me.getOpt("catcherUrlPrefix"),
+    catcherUrlPrefix = me.getOpt("catcherUrlPrefix") || '',
     catcherFieldName = me.getOpt("catcherFieldName");
 
   me.addListener('serverConfigLoaded', function () {
     catcherLocalDomain = me.getOpt("catcherLocalDomain");
     catcherActionUrl = me.getActionUrl(me.getOpt("catcherActionName"));
-    catcherUrlPrefix = me.getOpt("catcherUrlPrefix");
+    catcherUrlPrefix = me.getOpt("catcherUrlPrefix") || '';
     catcherFieldName = me.getOpt("catcherFieldName");
   });
 
@@ -40,12 +40,12 @@ UE.plugins["catchremoteimage"] = function () {
       // 自定义抓取图片
       /**
        * catchRemoteImages: (imgs: string[]) => Promise<{
+       *   state: 'SUCCESS'
        *   list: {
        *     source: string
        *     url: string
        *     state: 'SUCCESS' | 'FAIL'
        *   }
-       *   state: 'SUCCESS'
        * }>
        */
       me.options
