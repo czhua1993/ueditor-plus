@@ -82,11 +82,11 @@ UE.parse.register("list", function(utils) {
             selector +
               " ul.custom_" +
               listStyle +
-              "{list-style:none;} " +
+              "{list-style:none !important;} " +
               selector +
               " ul.custom_" +
               listStyle +
-              " li{background-position:0 3px;background-repeat:no-repeat}"
+              " li{background-position:left center;background-repeat:no-repeat}"
           );
         } else {
           var index = 1;
@@ -113,11 +113,11 @@ UE.parse.register("list", function(utils) {
             selector +
               " ol.custom_" +
               listStyle +
-              "{list-style:none;}" +
+              "{list-style:none !important;}" +
               selector +
               " ol.custom_" +
               listStyle +
-              " li{background-position:0 3px;background-repeat:no-repeat}"
+              " li{background-position:left center;background-repeat:no-repeat}"
           );
         }
         switch (listStyle) {

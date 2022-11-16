@@ -1,0 +1,144 @@
+<!doctype html>
+<html>
+
+<head>
+  <title>UEditorPlus 完整演示</title>
+  <meta name="viewport" content="width=device-width, minimum-scale=0.5, maximum-scale=5, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  <script type="text/javascript" charset="utf-8" src="../ueditor.config.js"></script>
+  <script type="text/javascript" charset="utf-8" src="editor_api.js"></script>
+  <script type="text/javascript" charset="utf-8" src="../lang/zh-cn/zh-cn.js"></script>
+  <script src="../ueditor.parse.js"></script>
+  <script src="./../plugins/demo/demo.js"></script>
+  <script>
+    // window.UEDITOR_CONFIG.toolbars[0].push('undo');
+  </script>
+  <script>var _hmt = _hmt || [];
+    (function () {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?5f8b495b287894a451c761c963e6e34a";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();</script>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body class="demo-editor-page">
+  <div>
+    <h1>完整示例</h1>
+    <div>
+      <script id="editor" type="text/plain" style="height:300px;">
+        <h1>
+          你好 UEditorPlus
+        </h1>
+        <p>
+          UEditorPlus 是基于 UEditor 二次开发的富文本编辑器，让 UEditor <span style="color: #E36C09;">焕<span
+              style="color: #0070C0;">然</span><span style="color: #31859B;"><span style="color: #00B050;">一</span><span
+                style="color: #FF0000;">新</span></span></span>
+        </p>
+
+        <table data-sort="sortDisabled">
+          <tbody>
+            <tr class="firstRow">
+              <td valign="top" style="word-break: break-all;" rowspan="1" colspan="3">
+                我是表格
+              </td>
+            </tr>
+            <tr>
+              <td width="273" valign="top" style="word-break: break-all;">
+                如果
+              </td>
+              <td width="273" valign="top" style="word-break: break-all;">
+                有一天
+              </td>
+              <td width="273" valign="top" style="word-break: break-all;">
+                我离开了
+              </td>
+            </tr>
+            <tr>
+              <td valign="top" colspan="1" rowspan="1" style="word-break: break-all;">
+                怎么才能
+              </td>
+              <td valign="top" colspan="1" rowspan="1" style="word-break: break-all;">
+                证明我
+              </td>
+              <td valign="top" colspan="1" rowspan="1" style="word-break: break-all;">
+                曾经来过
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <pre class="brush:html;toolbar:false">&lt;div&gt;
+  &lt;span&gt;这里是HTML标签&lt;/span&gt;
+&lt;/div&gt;</pre>
+        <h2>
+          公式支持
+        </h2>
+        <p>
+          <img
+            src="https://latex.codecogs.com/svg.image?f(a)%20%3D%20%5Cfrac%7B1%7D%7B2%5Cpi%20i%7D%20%5Coint%5Cfrac%7Bf(z)%7D%7Bz-a%7Ddz"
+            data-formula-image="f(a)%20%3D%20%5Cfrac%7B1%7D%7B2%5Cpi%20i%7D%20%5Coint%5Cfrac%7Bf(z)%7D%7Bz-a%7Ddz" />
+        </p>
+        <p>
+          <br />
+        </p>
+        <h2>有序列表</h2><ol class="custom_num list-paddingleft-1" style="list-style-type: num;"><li class="list-num-1-1 list-num-paddingleft-1"><p>1</p></li></ol><ol class="custom_num1 list-paddingleft-1" style="list-style-type: num1;"><li class="list-num-2-1 list-num1-paddingleft-1"><p>2</p></li></ol><ol class="custom_num2 list-paddingleft-1" style="list-style-type: num2;"><li class="list-num-3-1 list-num2-paddingleft-1"><p>3</p></li></ol><ol class="custom_cn list-paddingleft-1" style="list-style-type: cn;"><li class="list-cn-1-1 list-cn-paddingleft-1"><p>4</p></li></ol><ol class="custom_cn1 list-paddingleft-1" style="list-style-type: cn1;"><li class="list-cn-2-1 list-cn1-paddingleft-1"><p>5</p></li></ol><ol class="custom_cn2 list-paddingleft-1" style="list-style-type: cn2;"><li class="list-cn-3-1 list-cn2-paddingleft-1"><p>6</p></li></ol><ol style="list-style-type: decimal;" class=" list-paddingleft-2"><li><p>7</p></li></ol><ol style="list-style-type: lower-alpha;" class=" list-paddingleft-2"><li><p>8</p></li></ol><ol style="list-style-type: lower-roman;" class=" list-paddingleft-2"><li><p>9</p></li></ol><ol style="list-style-type: upper-alpha;" class=" list-paddingleft-2"><li><p>10</p></li></ol><ol style="list-style-type: upper-roman;" class=" list-paddingleft-2"><li><p>11<br></p></li></ol><h2>无序列表</h2><ul class=" list-paddingleft-2" style="list-style-type: circle;"><li><p>1</p></li></ul><ul class=" list-paddingleft-2" style="width: 744.797px; white-space: normal;"><li><p>2</p></li></ul><ul class=" list-paddingleft-2" style="list-style-type: square;"><li><p>3</p></li></ul><ul class="custom_dash list-paddingleft-1" style="list-style-type: dash;"><li class="list-dash list-dash-paddingleft"><p>4</p></li></ul><ul class="custom_dot list-paddingleft-1" style="list-style-type: dot;"><li class="list-dot list-dot-paddingleft"><p>5</p></li></ul>
+      </script>
+    </div>
+
+    <div id="content" class="content" style="margin-top:20px"></div>
+
+    <script type="text/javascript">
+      //实例化编辑器
+      //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
+      var ue = UE.getEditor('editor', {
+        listiconpath: '/listicon/',
+        imageAllowFiles: ['.jpg', '.jpeg', '.png', '.gif'],
+        catchRemoteImages: function (imgs) {
+          return new Promise(function (resolve, reject) {
+            resolve({
+              state: 'SUCCESS',
+              list: imgs.map(function (img, index) {
+                return ({
+                  source: img,
+                  url: img,
+                  state: 'SUCCESS',
+                })
+              })
+            })
+          })
+        },
+        uploadFile: function (file) {
+          return new Promise(function (resolve, reject) {
+            const reader = new FileReader()
+            reader.readAsDataURL(file)
+            reader.onload = function () {
+              resolve({
+                url: reader.result
+              })
+            }
+            reader.onerror = function (error) {
+              reject(error)
+            }
+          })
+        },
+      });
+
+      ue.addListener('contentChange', function () {
+        document.getElementById('content').innerHTML = ue.getContent()
+        uParse('.content', {
+          rootPath: '../',
+          highlightJsUrl: '/third-party/SyntaxHighlighter/shCore.js',
+          highlightCssUrl:
+            '/third-party/SyntaxHighlighter/shCoreDefault.css',
+          /** 自定义标号的路径 */
+          liiconpath: '/listicon/',
+        })
+      })
+
+    </script>
+  </div>
+</body>
+
+</html>

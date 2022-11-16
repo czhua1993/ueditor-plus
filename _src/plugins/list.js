@@ -87,9 +87,9 @@ UE.plugins["list"] = function() {
         customCss.push(
           "ul.custom_" +
             p +
-            "{list-style:none;}ul.custom_" +
+            "{list-style:none !important;}ul.custom_" +
             p +
-            " li{background-position:0 3px;background-repeat:no-repeat}"
+            " li{background-position:left center;background-repeat:no-repeat}"
         );
       } else {
         for (var i = 0; i < 99; i++) {
@@ -108,9 +108,9 @@ UE.plugins["list"] = function() {
         customCss.push(
           "ol.custom_" +
             p +
-            "{list-style:none;}ol.custom_" +
+            "{list-style:none !important;}ol.custom_" +
             p +
-            " li{background-position:0 3px;background-repeat:no-repeat}"
+            " li{background-position:left center;background-repeat:no-repeat}"
         );
       }
       switch (p) {
