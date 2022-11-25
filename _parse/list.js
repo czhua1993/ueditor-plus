@@ -15,12 +15,6 @@ UE.parse.register("list", function(utils) {
     listDefaultPaddingLeft: "20"
   });
 
-  if (!this.liiconpath) {
-    utils.extend(this, {
-      liiconpath: "http://bs.baidu.com/listicon/",
-    });
-  }
-
   var root = this.root,
     ols = root.getElementsByTagName("ol"),
     uls = root.getElementsByTagName("ul"),
@@ -73,9 +67,10 @@ UE.parse.register("list", function(utils) {
               " li.list-" +
               customStyle[listStyle] +
               "{background-image:url(" +
-              T.liiconpath +
-              customStyle[listStyle] +
-              ".gif)}"
+              (T.liiconpath
+                ? T.liiconpath + customStyle[listStyle] + ".gif"
+                : UE.listIcons[customStyle[listStyle]]) +
+              ")}"
           );
           utils.pushItem(
             customCss,
@@ -99,11 +94,14 @@ UE.parse.register("list", function(utils) {
                   customStyle[listStyle] +
                   index +
                   "{background-image:url(" +
-                  T.liiconpath +
-                  "list-" +
-                  customStyle[listStyle] +
-                  index +
-                  ".gif)}"
+                  (T.liiconpath
+                    ? T.liiconpath +
+                      "list-" +
+                      customStyle[listStyle] +
+                      index +
+                      ".gif"
+                    : UE.listIcons["list-" + customStyle[listStyle] + index]) +
+                  ")}"
               );
               index++;
             }

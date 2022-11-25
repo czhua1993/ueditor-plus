@@ -22,7 +22,8 @@
         "url": "https://github.com/fex-team/ueditor/issues"
     },
     "scripts": {
-        "build": "grunt default"
+        "build": "grunt default",
+        "list-icon": "node scripts/list-icon.js"
     },
     "dependencies": {
         "grunt": "~0.4.1",

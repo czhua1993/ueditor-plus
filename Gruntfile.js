@@ -124,7 +124,6 @@ module.exports = function (grunt) {
               "lang/**",
               "third-party/**",
               "plugins/**",
-              "listicon/**",
             ],
             dest: distDir
           }
