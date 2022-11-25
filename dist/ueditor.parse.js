@@ -677,12 +677,6 @@ UE.parse.register("list", function(utils) {
     listDefaultPaddingLeft: "20"
   });
 
-  if (!this.liiconpath) {
-    utils.extend(this, {
-      liiconpath: "http://bs.baidu.com/listicon/",
-    });
-  }
-
   var root = this.root,
     ols = root.getElementsByTagName("ol"),
     uls = root.getElementsByTagName("ul"),
@@ -735,20 +729,21 @@ UE.parse.register("list", function(utils) {
               " li.list-" +
               customStyle[listStyle] +
               "{background-image:url(" +
-              T.liiconpath +
-              customStyle[listStyle] +
-              ".gif)}"
+              (T.liiconpath
+                ? T.liiconpath + customStyle[listStyle] + ".gif"
+                : UE.listIcons[customStyle[listStyle]]) +
+              ")}"
           );
           utils.pushItem(
             customCss,
             selector +
               " ul.custom_" +
               listStyle +
-              "{list-style:none;} " +
+              "{list-style:none !important;} " +
               selector +
               " ul.custom_" +
               listStyle +
-              " li{background-position:0 3px;background-repeat:no-repeat}"
+              " li{background-position:left center;background-repeat:no-repeat}"
           );
         } else {
           var index = 1;
@@ -761,11 +756,14 @@ UE.parse.register("list", function(utils) {
                   customStyle[listStyle] +
                   index +
                   "{background-image:url(" +
-                  T.liiconpath +
-                  "list-" +
-                  customStyle[listStyle] +
-                  index +
-                  ".gif)}"
+                  (T.liiconpath
+                    ? T.liiconpath +
+                      "list-" +
+                      customStyle[listStyle] +
+                      index +
+                      ".gif"
+                    : UE.listIcons["list-" + customStyle[listStyle] + index]) +
+                  ")}"
               );
               index++;
             }
@@ -775,11 +773,11 @@ UE.parse.register("list", function(utils) {
             selector +
               " ol.custom_" +
               listStyle +
-              "{list-style:none;}" +
+              "{list-style:none !important;}" +
               selector +
               " ol.custom_" +
               listStyle +
-              " li{background-position:0 3px;background-repeat:no-repeat}"
+              " li{background-position:left center;background-repeat:no-repeat}"
           );
         }
         switch (listStyle) {

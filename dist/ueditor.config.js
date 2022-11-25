@@ -339,7 +339,7 @@
     //    'square' : ''   //'■ 小方块'
     //}
     //,listDefaultPaddingLeft : '30'//默认的左边缩进的基数倍
-    //,listiconpath : 'http://bs.baidu.com/listicon/'//自定义标号的路径
+    //,listiconpath : '' // 默认为空（使用内部图标），可以自定义标号路径
     //,maxListLevel : 3 //限制可以tab的级数, 设置-1为不限制
 
     //,autoTransWordToList:false  //禁止word中粘贴进来的列表自动变成列表标签
