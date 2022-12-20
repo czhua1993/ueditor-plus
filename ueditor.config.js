@@ -557,9 +557,15 @@
   }
 
   function getConfigFilePath() {
-    var configPath = document.getElementsByTagName("script");
-
-    return configPath[configPath.length - 1].src;
+    var scripts = document.getElementsByTagName("script");
+    var configScript = scripts[scripts.length - 1];
+    for (var i = 0; i < scripts.length; i++) {
+      if (scripts[i].src.indexOf("/ueditor/ueditor.config.js") > -1) {
+        configScript = scripts[i];
+        break;
+      }
+    }
+    return configScript.src;
   }
 
   function getBasePath(docUrl, confUrl) {
