@@ -39,6 +39,14 @@ UE.plugins["autoheight"] = function() {
             domUtils.getXY(node).y + node.offsetHeight + 25,
             Math.max(options.minFrameHeight, options.initialFrameHeight)
           );
+          if (options.maxFrameHeight) {
+            if (currentHeight > options.maxFrameHeight) {
+              currentHeight = options.maxFrameHeight;
+              me.document.body.style.overflowY = "auto";
+            } else if (me.document.body.style.overflowY !== "hidden") {
+              me.document.body.style.overflowY = "hidden";
+            }
+          }
           if (currentHeight != lastHeight) {
             if (currentHeight !== parseInt(me.iframe.parentNode.style.height)) {
               me.iframe.parentNode.style.height = currentHeight + "px";

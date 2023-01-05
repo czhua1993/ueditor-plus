@@ -476,6 +476,7 @@
     //autoHeightEnabled
     // 是否自动长高,默认true
     //,autoHeightEnabled:true
+    //,maxFrameHeight:300  //自动长高最大高度
 
     //scaleEnabled
     //是否可以拉伸长高,默认true(当开启时，自动长高失效)
@@ -560,7 +561,7 @@
     var scripts = document.getElementsByTagName("script");
     var configScript = scripts[scripts.length - 1];
     for (var i = 0; i < scripts.length; i++) {
-      if (scripts[i].src.indexOf("/ueditor/ueditor.config.js") > -1) {
+      if (scripts[i].src.indexOf("ueditor.config.js") > -1) {
         configScript = scripts[i];
         break;
       }
